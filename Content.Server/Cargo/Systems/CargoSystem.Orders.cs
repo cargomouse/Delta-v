@@ -246,32 +246,6 @@ namespace Content.Server.Cargo.Systems
                 if (CargoOrderConsoleComponent.BaseAnnouncementChannel != account.RadioChannel)
                     _radio.SendRadioMessage(uid, message, CargoOrderConsoleComponent.BaseAnnouncementChannel, uid, escapeMarkup: false);
 
-                // DeltaV content: Order console receipt
-                var receipt = Spawn(orderDatabase.PrinterOutput, Transform(uid).Coordinates);
-                if (TryComp<PaperComponent>(receipt, out var paper))
-                {
-                    // fill in the order and financial data
-                    var val = Loc.GetString("cargo-console-paper-print-name", ("orderNumber", order.OrderId));
-                    _metaSystem.SetEntityName(receipt, val);
-                    var accountProto = _protoMan.Index(component.Account);
-
-                    _paperSystem.SetContent((receipt, paper),
-                        Loc.GetString("cargo-console-receipt-print-text",
-                            ("orderNumber", order.OrderId),
-                            ("itemName", Loc.GetString(order.ProductName)),
-                            ("orderQuantity", order.OrderQuantity),
-                            ("requester", order.Requester),
-                            ("reason", string.IsNullOrWhiteSpace(order.Reason) ? Loc.GetString("cargo-console-paper-reason-default") : order.Reason),
-                            ("account", Loc.GetString(accountProto.Name)),
-                            ("accountcode", Loc.GetString(accountProto.Code)),
-                            ("orderCost", cost),
-                            ("accountBalance", accountBalance),
-                            ("accountBalanceNew", accountBalance - cost),
-                            ("approver", string.IsNullOrWhiteSpace(order.Approver) ? Loc.GetString("cargo-console-paper-approver-default") : order.Approver)));
-
-                    _audio.PlayPvs(component.PrintSound, uid);
-                }
-                // End DeltaV content
             }
 
             ConsolePopup(args.Actor, Loc.GetString("cargo-console-trade-station", ("destination", MetaData(ev.FulfillmentEntity.Value).EntityName)));
