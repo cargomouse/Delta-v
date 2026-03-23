@@ -47,16 +47,36 @@ cargo-console-fund-transfer-broadcast = [bold]{$name} transferred {$amount} spes
 cargo-console-fund-transfer-user-unknown = Unknown
 
 cargo-console-paper-reason-default = None
-cargo-console-paper-approver-default = Self
+cargo-console-paper-approver-default = Unspecified
 cargo-console-paper-print-name = Order #{$orderNumber}
 cargo-console-paper-print-text = [head=2]Order #{$orderNumber}[/head]
     {"[bold]Item:[/bold]"} {$itemName} (x{$orderQuantity})
     {"[bold]Requested by:[/bold]"} {$requester}
 
     {"[head=3]Order Information[/head]"}
-    {"[bold]Payer[/bold]:"} {$account} [font="Monospace"]\[{$accountcode}\][/font]
+    {"[bold]Payer[/bold]:"} {$account} [mono]\[{$accountcode}\][/mono]
     {"[bold]Approved by:[/bold]"} {$approver}
     {"[bold]Reason:[/bold]"} {$reason}
+
+# Deltav - Order console receipt
+cargo-console-receipt-print-text = [head=2]Order #{$orderNumber}[/head] (RECORD COPY)
+    {"[bold]Item:[/bold]"} {$itemName} (x{$orderQuantity})
+    {"[bold]Requested by:[/bold]"} {$requester}
+
+    {"[head=3]Order Information[/head]"}
+    {"[bold]Approved by:[/bold]"} {$approver}
+    {"[bold]Reason:[/bold]"} {$reason}
+
+    {"[head=3]Billing Information[/head]"}
+    {"[bold]Payer:[/bold]"} {$account} [mono]\[{$accountcode}\][/mono]
+    {"[bold]Previous Balance:[/bold]"} $[mono]{$accountBalance}[/mono]
+    {"[bold]Amount Paid:[/bold]"} [color=red]$[mono]{$orderCost}[/mono][/color]
+    {"[bold]New Balance:[/bold]"} $[mono]{$accountBalanceNew}[/mono]
+{"─────────────────────────────"}
+{"[bolditalic]ORDER SHIPPED TO AUTOMATED TRADE STATION[/bolditalic]"}
+{"[italic]Review all information before stamping and filing. Shred before disposal. Additional notes may be provided below.[/italic]"}
+
+# End Deltav content
 
 # Cargo shuttle console
 cargo-shuttle-console-menu-title = Cargo shuttle console
