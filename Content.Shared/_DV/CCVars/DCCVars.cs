@@ -289,4 +289,11 @@ public sealed partial class DCCVars
     /// </summary>
     public static readonly CVarDef<int> CosmicCultFinaleDelaySeconds =
         CVarDef.Create("cosmiccult.extra_entropy_for_finale", 1, CVar.SERVER);
+
+    /// <summary>
+    /// Option to mute radio chime sounds
+    /// </summary>
+    public static readonly CVarDef<bool> RadioChimeMuted =
+        CVarDef.Create("audio.radio_chime_muted", false, CVar.CLIENTONLY | CVar.ARCHIVE);
+
 }

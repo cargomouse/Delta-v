@@ -1,6 +1,7 @@
 using Content.Server.Administration.Logs;
 using Content.Server.Chat.Systems;
 using Content.Server.Power.Components;
+using Content.Server._Starlight.Radio.Systems;
 using Content.Shared.Chat;
 using Content.Shared.Database;
 using Content.Shared.Radio;
@@ -27,6 +28,7 @@ public sealed class RadioSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency] private readonly RadioChimeSystem _chime = default!; //🌟Starlight🌟
 
     // set used to prevent radio feedback loops.
     private readonly HashSet<string> _messages = new();
@@ -92,6 +94,8 @@ public sealed class RadioSystem : EntitySystem
             ? FormattedMessage.EscapeText(message)
             : message;
 
+        _chime.TryGetSenderHeadsetChime(messageSource, out var chime); // Starlight
+
         var wrappedMessage = Loc.GetString(speech.Bold ? "chat-radio-message-wrap-bold" : "chat-radio-message-wrap",
             ("color", channel.Color),
             ("fontType", speech.FontId),
@@ -107,7 +111,10 @@ public sealed class RadioSystem : EntitySystem
             message,
             wrappedMessage,
             NetEntity.Invalid,
-            null);
+            null)
+        {
+            Chime = chime,
+        };
         var chatMsg = new MsgChatMessage { Message = chat };
         var ev = new RadioReceiveEvent(message, messageSource, channel, radioSource, chatMsg);
 

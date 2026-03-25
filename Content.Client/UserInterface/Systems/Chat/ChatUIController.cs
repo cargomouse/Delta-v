@@ -40,6 +40,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Replays;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
+using Content.Client._Starlight.Radio.Systems;
 using Content.Client.Nyanotrasen.Chat; //Nyano - Summary: chat namespace.
 
 
@@ -60,6 +61,7 @@ public sealed partial class ChatUIController : UIController
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IReplayRecordingManager _replayRecording = default!;
 
+    [UISystemDependency] private readonly RadioChimeSystem? _chime = default;// 🌟Starlight🌟
     [UISystemDependency] private readonly ExamineSystem? _examine = default;
     [UISystemDependency] private readonly GhostSystem? _ghost = default;
     [UISystemDependency] private readonly TypingIndicatorSystem? _typingIndicator = default;
@@ -873,6 +875,8 @@ public sealed partial class ChatUIController : UIController
         {
             History.Add((_timing.CurTick, msg));
             MessageAdded?.Invoke(msg);
+
+            _chime?.PlayChime(msg.Chime); // 🌟Starlight🌟
 
             if (!msg.Read)
             {

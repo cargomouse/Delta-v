@@ -4,6 +4,7 @@ using Lidgren.Network;
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
+using Robust.Shared.Audio;
 
 namespace Content.Shared.Chat
 {
@@ -23,6 +24,9 @@ namespace Content.Shared.Chat
         /// formatting tags.
         /// </summary>
         public string WrappedMessage;
+
+        // Starlight, for radio chimes
+        public SoundSpecifier? Chime;
 
         public NetEntity SenderEntity;
 
