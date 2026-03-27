@@ -1,14 +1,17 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Inventory;
+using Content.Shared.Radio;
 using Content.Shared.Radio.Components;
 using Content.Shared.Silicons.StationAi;
 using Robust.Shared.Audio;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._Starlight.Radio.Systems;
 
 public sealed class RadioChimeSystem : EntitySystem
 {
     [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency] private readonly IPrototypeManager _protoMan = default!;
     private readonly SoundPathSpecifier _aiChimeSound = new("/Audio/_Starlight/Effects/Radio/ai.ogg");
 
     /// <summary>
@@ -25,6 +28,7 @@ public sealed class RadioChimeSystem : EntitySystem
             return true;
         }
 
+        /*
         // Try to get the inventory system to find the headset
         if (!TryComp<InventoryComponent>(client, out var inventory))
             return false;
@@ -37,6 +41,9 @@ public sealed class RadioChimeSystem : EntitySystem
         if (!TryComp<RadioChimeComponent>(headsetEntity.Value, out var radioChime)
             || radioChime.Sound is null)
             return false;
+        */
+
+        var currentChannel = _protoMan.HasIndex<RadioChannelPrototype>(args.Channel)
 
         chime = radioChime.Sound;
         return true;
