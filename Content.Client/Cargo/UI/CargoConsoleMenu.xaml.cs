@@ -229,6 +229,7 @@ namespace Content.Client.Cargo.UI
                             ("orderAmount", order.OrderQuantity),
                             ("orderRequester", order.Requester),
                             ("accountColor", account.Color),
+                            ("orderCost", order.Price * order.OrderQuantity),
                             ("account", Loc.GetString(account.Code)))
                     },
                     Description =

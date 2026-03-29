@@ -19,6 +19,7 @@ cargo-console-menu-orders-label = Orders
 cargo-console-menu-order-reason-description = Reasons: {$reason}
 cargo-console-menu-populate-categories-all-text = All
 cargo-console-menu-populate-orders-cargo-order-row-product-name-text = {$productName} (x{$orderAmount}) by {$orderRequester} from [color={$accountColor}]{$account}[/color]
+{"[color=orange]Cost:[/color]"} ${$orderCost}
 cargo-console-menu-cargo-order-row-approve-button = Approve
 cargo-console-menu-cargo-order-row-cancel-button = Cancel
 cargo-console-menu-tab-title-orders = Orders
